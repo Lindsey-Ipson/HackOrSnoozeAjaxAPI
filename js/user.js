@@ -139,15 +139,14 @@ async function favOrUnfavStory (evt) {
 }
 
 async function deleteStory (evt) {
-  console.debug('deleteStory');
-  console.log("EVT TARG", evt.target)
-  const parent = $(evt.target).parent();
-  console.log(parent);
-  const storyId = $(evt.target).parent().attr("id");
-  console.log(storyId);
+  const $deleteButton = $(evt.target);
+  const $li = $deleteButton.closest('li');
+  console.log("$li", $li);
+  const storyId = $li.attr("id");
+  console.log("STORY ID:", storyId);
 
   const deleteStory = await axios.delete(`${BASE_URL}/stories/${storyId}`, { data: {token: currentUser.loginToken}});
-  console.log(deleteStory);
+  console.log("DELETE STORY", deleteStory);
 
   storyList = await StoryList.getStories();
   $storiesLoadingMsg.remove();

@@ -63,7 +63,7 @@ $("#nav-all").on("click", showMainPageOnHackOrSnoozeCick);
 async function showFavorites () {
   console.debug('showFavorites');
 
-  storyList.stories = currentUser.favorites
+  storyList.stories = currentUser.favorites;
 
   console.log('CURRENT USER--->', currentUser)
 

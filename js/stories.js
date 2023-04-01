@@ -20,13 +20,16 @@ async function getAndShowStoriesOnStart() {
  */
 
 function generateStoryMarkup(story) {
-  console.debug("generateStoryMarkup");
+  // console.debug("generateStoryMarkup");
 
   const hostName = story.getHostName();
 
-  const isFavoriteStory = currentUser.favorites.some(favorite => favorite.storyId === story.storyId)
+  const isFavoriteStory = currentUser.favorites.some(favorite => favorite.storyId === story.storyId);
+  const starSymbol = isFavoriteStory ? "★" : "☆";
 
-  const starSymbol = isFavoriteStory ? '★' : '☆';
+  // hide the button if the story is NOT the user's
+  const hidden = currentUser.ownStories.some(own => own.storyId === story.storyId) ? "" : "style=\"display:none;\"";
+  console.log(hidden);
 
   return $(`
       <li id="${story.storyId}">
@@ -42,7 +45,7 @@ function generateStoryMarkup(story) {
         </div>
         <div class="username-and-delete">
         <small class="story-user">posted by ${story.username}</small>
-        <span class="delete-button">delete</span>
+        <span class='delete-button' ${hidden}">delete</span>
         </div>
       </li>
     `);
@@ -60,14 +63,8 @@ function putStoriesOnPage() {
   // loop through all of our stories and generate HTML for them
   for (let story of storyList.stories) {
     const $story = generateStoryMarkup(story);
-
-
-    $story.children(':first-child').on("click", favOrUnfavStory);
-
-    // console.log("story---------->", $story);
-    // console.log("finding delete button----------->", ($story.find(".delete-button")))
-    $story.find(".delete-button").on("click", deleteStory);
-
+    $story.find('.star:first').on("click", favOrUnfavStory);
+    $story.find('.delete-button:first').on("click", deleteStory)
     $allStoriesList.append($story);
   }
 
@@ -81,9 +78,7 @@ function putStoriesOnPage() {
 
 async function createAndSendStoryOnSubmit() {
   const newStory = {title: $('#title').val(), author: $('#author').val(), url: $('#url').val()};
-  console.log("NEW STORY------------>", newStory);
   const storyInstance = await storyList.addStory(currentUser, newStory);
-  console.log("STORY INSTANCE ----------->", storyInstance)
 
   storyList = await StoryList.getStories();
   $storiesLoadingMsg.remove();
