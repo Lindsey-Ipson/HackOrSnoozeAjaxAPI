@@ -127,13 +127,13 @@ async function favOrUnfavStory (evt) {
   if ($star.text() === "☆") {
     $star.text("★");
     const newFav = await axios.post(`${BASE_URL}/users/${currentUser.username}/favorites/${storyId}`, {token: currentUser.loginToken});
-    currentUser = newFav.data.user
+    currentUser.favorites = newFav.data.user.favorites.map(fav => new Story(fav));
     console.log('NEW FAV', newFav);
   }
   else {
     $star.text("☆");
     const unFav = await axios.delete(`${BASE_URL}/users/${currentUser.username}/favorites/${storyId}`, { data: {token: currentUser.loginToken}});
-    currentUser = unFav.data.user
+    currentUser = unFav.data.user.favorites.map(fav => new Story(fav));
     console.log('UN-FAV', unFav);
   }
 }

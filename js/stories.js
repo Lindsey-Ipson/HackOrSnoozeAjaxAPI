@@ -20,7 +20,7 @@ async function getAndShowStoriesOnStart() {
  */
 
 function generateStoryMarkup(story) {
-  // console.debug("generateStoryMarkup");
+  console.debug(story instanceof Story);
 
   const hostName = story.getHostName();
 
