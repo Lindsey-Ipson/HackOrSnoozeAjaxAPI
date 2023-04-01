@@ -29,7 +29,7 @@ function generateStoryMarkup(story) {
 
   // hide the button if the story is NOT the user's
   const hidden = currentUser.ownStories.some(own => own.storyId === story.storyId) ? "" : "style=\"display:none;\"";
-  console.log(hidden);
+  // console.log(hidden);
 
   return $(`
       <li id="${story.storyId}">
@@ -79,8 +79,7 @@ function putStoriesOnPage() {
 async function createAndSendStoryOnSubmit() {
   const newStory = {title: $('#title').val(), author: $('#author').val(), url: $('#url').val()};
   const storyInstance = await storyList.addStory(currentUser, newStory);
-
-  storyList = await StoryList.getStories();
+  currentUser.ownStories.push(storyInstance);
   $storiesLoadingMsg.remove();
 
   $storyForm.trigger('reset');
