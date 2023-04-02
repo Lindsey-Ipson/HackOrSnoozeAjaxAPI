@@ -58,6 +58,7 @@ $signupForm.on("submit", signup);
 
 function logout(evt) {
   console.debug("logout", evt);
+
   localStorage.clear();
   location.reload();
 }
@@ -111,6 +112,7 @@ function updateUIOnUserLogin() {
   console.debug("updateUIOnUserLogin");
 
   $allStoriesList.show();
+  $navLeft.show();
 
   updateNavOnLogin();
 }

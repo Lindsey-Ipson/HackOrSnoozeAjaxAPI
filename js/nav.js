@@ -30,9 +30,13 @@ $navLogin.on("click", navLoginClick);
 function updateNavOnLogin() {
   console.debug("updateNavOnLogin");
   $(".main-nav-links").show();
-  $navLogin.hide(); // TODO not working
+  $navLogin.hide();
+  $loginForm.hide();
+  $signupForm.hide();
   $navLogOut.show();
   $navUserProfile.text(`${currentUser.username}`).show();
+  
+  getAndShowStoriesOnStart();
 }
 
 /** When user clicks "submit" in navbar, shows story form */
