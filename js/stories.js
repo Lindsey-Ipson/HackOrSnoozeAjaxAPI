@@ -7,7 +7,6 @@ let storyList;
 
 async function getAndShowStoriesOnStart() {
   storyList = await StoryList.getStories();
-  $storiesLoadingMsg.remove();
 
   putStoriesOnPage();
 }
@@ -80,7 +79,6 @@ async function createAndSendStoryOnSubmit() {
   const newStory = {title: $('#title').val(), author: $('#author').val(), url: $('#url').val()};
   const storyInstance = await storyList.addStory(currentUser, newStory);
   currentUser.ownStories.push(storyInstance);
-  $storiesLoadingMsg.remove();
 
   $storyForm.trigger('reset');
   $storyForm.css('display', 'none');

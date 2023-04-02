@@ -42,6 +42,8 @@ async function start() {
 
   // if we got a logged-in user
   if (currentUser) updateUIOnUserLogin();
+
+  $storiesLoadingMsg.hide();
 }
 
 // Once the DOM is entirely loaded, begin the app
@@ -51,14 +53,3 @@ console.warn("HEY STUDENT: This program sends many debug messages to" +
   " seeing those helpful debug messages. In your browser console, click on" +
   " menu 'Default Levels' and add Verbose");
 $(start);
-
-
-
-
-
-/** Need To:
- * - add delete button right after submitting story - done
- * - fix loading message
- * - fix refreshing not working
- * - in favorites and delete something, it doesn't go away
- */

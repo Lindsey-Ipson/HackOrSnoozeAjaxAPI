@@ -52,7 +52,6 @@ $navSubmit.on("click", showOrHideStoryFormOnNavSubmit)
 
 async function showMainPageOnHackOrSnoozeCick () {
   storyList = await StoryList.getStories();
-  $storiesLoadingMsg.remove();
   putStoriesOnPage();
 }
 
@@ -69,7 +68,6 @@ async function showFavorites () {
 
   console.log("STORY LIST.stories --->", storyList.stories)
 
-  $storiesLoadingMsg.remove();
   putStoriesOnPage();
 }
 
@@ -81,7 +79,6 @@ function showMyStories () {
 
   console.log(storyList)
 
-  $storiesLoadingMsg.remove();
   putStoriesOnPage();
 }
 

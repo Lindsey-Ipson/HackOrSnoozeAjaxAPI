@@ -53,10 +53,12 @@ class StoryList {
     //  instance method?
 
     // query the /stories endpoint (no auth required)
+    $storiesLoadingMsg.show();
     const response = await axios({
       url: `${BASE_URL}/stories`,
       method: "GET",
     });
+    $storiesLoadingMsg.hide();
 
     // turn plain old story objects from API into instances of Story class
     const stories = response.data.stories.map(story => new Story(story));
