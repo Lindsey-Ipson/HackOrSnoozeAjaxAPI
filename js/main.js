@@ -57,7 +57,8 @@ $(start);
 
 
 /** Need To:
- * - add delete button right after submitting story
+ * - add delete button right after submitting story - done
  * - fix loading message
  * - fix refreshing not working
+ * - in favorites and delete something, it doesn't go away
  */

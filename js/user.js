@@ -146,7 +146,12 @@ async function deleteStory (evt) {
   console.log("STORY ID:", storyId);
 
   const deleteStory = await axios.delete(`${BASE_URL}/stories/${storyId}`, { data: {token: currentUser.loginToken}});
-  console.log("DELETE STORY", deleteStory);
+
+  // update currentUser favorites and ownstories (in case the deleted story is in that array)
+  console.log(currentUser);
+  currentUser.favorites = currentUser.favorites.filter(obj => obj.storyId !== storyId);
+  currentUser.ownStories = currentUser.ownStories.filter(obj => obj.storyId !== storyId);
+  console.log(currentUser)
 
   storyList = await StoryList.getStories();
   $storiesLoadingMsg.remove();
