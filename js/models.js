@@ -81,14 +81,8 @@ class StoryList {
       token: user.loginToken,
       story: newStory
     });
-
-    console.log("SENT STORY:" + JSON.stringify(sentStory));
-
     const storyInstance = new Story (sentStory.data.story);
-
-    console.log("storyInst: " + JSON.stringify(storyInstance));
-
-    this.stories.push(storyInstance);
+    this.stories.unshift(storyInstance);
 
     return storyInstance;
   }

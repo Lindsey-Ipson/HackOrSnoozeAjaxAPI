@@ -78,7 +78,7 @@ function putStoriesOnPage() {
 async function createAndSendStoryOnSubmit() {
   const newStory = {title: $('#title').val(), author: $('#author').val(), url: $('#url').val()};
   const storyInstance = await storyList.addStory(currentUser, newStory);
-  currentUser.ownStories.push(storyInstance);
+  currentUser.ownStories.unshift(storyInstance);
 
   $storyForm.trigger('reset');
   $storyForm.css('display', 'none');
