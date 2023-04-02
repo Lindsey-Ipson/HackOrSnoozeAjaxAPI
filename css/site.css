@@ -3,6 +3,7 @@
 body {
   font-family: Arimo, sans-serif;
   margin: 8px 7.5vw;
+  background-image: radial-gradient(circle, rgb(238, 174, 202) 0%, rgb(148, 187, 233) 100%);
 }
 
 h1 {
@@ -38,12 +39,17 @@ a:hover {
   flex-direction: column;
   align-self: center;
   background-color: #f6f6ef;
+  border-radius: 0 0 5px 5px;
+}
+
+.stories-container{
+  height: calc(100vh - 100px);
+  overflow: scroll;
 }
 
 .hidden {
   display: none;
 }
-
 
 /* Forms */
 
@@ -105,7 +111,6 @@ form > hr {
 .login-input label {
   width: 70px;
 }
-
 
 /* responsive queries for tightening things up for mobile. */
 

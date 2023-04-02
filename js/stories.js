@@ -7,14 +7,12 @@ let storyList;
 
 async function getAndShowStoriesOnStart() {
   storyList = await StoryList.getStories();
-
   putStoriesOnPage();
 }
 
 /**
  * A render method to render HTML for an individual Story instance
  * - story: an instance of Story
- *
  * Returns the markup for the story.
  */
 
@@ -23,12 +21,11 @@ function generateStoryMarkup(story) {
 
   const hostName = story.getHostName();
 
-  const isFavoriteStory = currentUser.favorites.some(favorite => favorite.storyId === story.storyId);
+  const isFavoriteStory = currentUser && currentUser.favorites.some(favorite => favorite.storyId === story.storyId);
   const starSymbol = isFavoriteStory ? "★" : "☆";
 
   // hide the button if the story is NOT the user's
-  const hidden = currentUser.ownStories.some(own => own.storyId === story.storyId) ? "" : "style=\"display:none;\"";
-  // console.log(hidden);
+  const hidden = currentUser && currentUser.ownStories.some(own => own.storyId === story.storyId) ? "" : "style=\"display:none;\"";
 
   return $(`
       <li id="${story.storyId}">
@@ -50,9 +47,8 @@ function generateStoryMarkup(story) {
     `);
 }
 
-//print list of stories from api and favorite stories 
-
-/** Gets list of stories from server, generates their HTML, and puts on page. */
+/** Gets list of stories from storyList, generates their HTML,
+ * adds event listeners, and places on page. */
 
 function putStoriesOnPage() {
   console.debug("putStoriesOnPage");
@@ -66,7 +62,7 @@ function putStoriesOnPage() {
     $story.find('.delete-button:first').on("click", deleteStory)
     $allStoriesList.append($story);
   }
-
+  $storiesContainer.show();
   $allStoriesList.show();
 }
 

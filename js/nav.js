@@ -25,7 +25,7 @@ function navLoginClick(evt) {
 
 $navLogin.on("click", navLoginClick);
 
-/** When a user first logins in, update the navbar to reflect that. */
+/** When a user first logins, update the navbar to reflect that. */
 
 function updateNavOnLogin() {
   console.debug("updateNavOnLogin");
@@ -42,14 +42,14 @@ function updateNavOnLogin() {
 /** When user clicks "submit" in navbar, shows story form */
 
 function showOrHideStoryFormOnNavSubmit() {
-  console.debug("showOrHideStoryFormOnNavSubmit")
+  console.debug("showOrHideStoryFormOnNavSubmit");
+  getAndShowStoriesOnStart();
   $('#story-form').is(':visible') ? $('#story-form').hide() : $('#story-form').show();
 }
 
-
 $navSubmit.on("click", showOrHideStoryFormOnNavSubmit)
 
-/**When user clicks on "Hack or Snoze" in navbar, show main page of
+/**When user clicks on "Hack or Snooze" in navbar, show main page of
  * latest stories
  * (This is useful for backing out of "favorites" or "my stories" pages)
  */
@@ -65,13 +65,7 @@ $("#nav-all").on("click", showMainPageOnHackOrSnoozeCick);
 
 async function showFavorites () {
   console.debug('showFavorites');
-
-  storyList.stories = currentUser.favorites;
-
-  console.log('CURRENT USER--->', currentUser)
-
-  console.log("STORY LIST.stories --->", storyList.stories)
-
+  storyList.stories = currentUser.favorites.reverse();
   putStoriesOnPage();
 }
 
@@ -80,9 +74,6 @@ $('#nav-favorites').on("click", showFavorites);
 function showMyStories () {
   console.debug('showMyStories');
   storyList.stories = currentUser.ownStories;
-
-  console.log(storyList)
-
   putStoriesOnPage();
 }
 

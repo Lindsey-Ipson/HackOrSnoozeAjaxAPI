@@ -18,7 +18,7 @@ async function login(evt) {
   const password = $("#login-password").val();
 
   // User.login retrieves user info from API and returns User instance
-  // which we'll make the globally-available, logged-in user.
+  // which we'll make the globally-available, logged-in user
   currentUser = await User.login(username, password);
 
   $loginForm.trigger("reset");
@@ -29,10 +29,10 @@ async function login(evt) {
 
 $loginForm.on("submit", login);
 
-/** Handle signup form submission. */
+/** Handle signup form submission */
 
 async function signup(evt) {
-  console.debug("signup", evt);
+  console.debug("signup");
   evt.preventDefault();
 
   const name = $("#signup-name").val();
@@ -52,12 +52,11 @@ async function signup(evt) {
 $signupForm.on("submit", signup);
 
 /** Handle click of logout button
- *
  * Remove their credentials from localStorage and refresh page
  */
 
 function logout(evt) {
-  console.debug("logout", evt);
+  console.debug("logout");
 
   localStorage.clear();
   location.reload();
@@ -113,6 +112,7 @@ function updateUIOnUserLogin() {
 
   $allStoriesList.show();
   $navLeft.show();
+  $storiesContainer.show();
 
   updateNavOnLogin();
 }
@@ -123,7 +123,6 @@ function updateUIOnUserLogin() {
 async function favOrUnfavStory (evt) {
   console.debug("favOrUnfavStory");
   const $star = $(evt.target);
-  console.log($star);
   const storyId = $star.closest("li").attr("id");
 
   if ($star.text() === "☆") {
@@ -135,7 +134,7 @@ async function favOrUnfavStory (evt) {
   else {
     $star.text("☆");
     const unFav = await axios.delete(`${BASE_URL}/users/${currentUser.username}/favorites/${storyId}`, { data: {token: currentUser.loginToken}});
-    currentUser = unFav.data.user.favorites.map(fav => new Story(fav));
+    currentUser.favorites = unFav.data.user.favorites.map(fav => new Story(fav));
     console.log('UN-FAV', unFav);
   }
 }
@@ -143,11 +142,10 @@ async function favOrUnfavStory (evt) {
 async function deleteStory (evt) {
   const $deleteButton = $(evt.target);
   const $li = $deleteButton.closest('li');
-  console.log("$li", $li);
   const storyId = $li.attr("id");
-  console.log("STORY ID:", storyId);
 
   const deleteStory = await axios.delete(`${BASE_URL}/stories/${storyId}`, { data: {token: currentUser.loginToken}});
+  console.log("DELETE STORY", deleteStory)
 
   // update currentUser favorites and ownstories (in case the deleted story is in that array)
   currentUser.favorites = currentUser.favorites.filter(obj => obj.storyId !== storyId);
